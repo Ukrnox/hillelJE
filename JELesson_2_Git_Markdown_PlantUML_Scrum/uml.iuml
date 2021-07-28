@@ -1,0 +1,9 @@
+@startuml
+node To_do
+node in_progress
+node testing
+node Done
+To_do -> in_progress
+in_progress -> testing
+testing -> Done
+@enduml
