@@ -2,7 +2,7 @@ package gui;
 
 import connection_config.H2DBConnection;
 import tablecreator.CreateTablesFromEntities;
-import import_from_cvs_in_zip_to_db.ImportCSVFromZIPIntoDB;
+import importfromcvsinziptodb.ImportCSVFromZIPIntoDB;
 import dao.CityDao;
 import dao.CountryDao;
 import dao.RegionDao;

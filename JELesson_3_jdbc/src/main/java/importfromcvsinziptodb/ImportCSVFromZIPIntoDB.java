@@ -1,4 +1,4 @@
-package import_from_cvs_in_zip_to_db;
+package importfromcvsinziptodb;
 
 import lombok.extern.slf4j.Slf4j;
 import tablecreator.TableCreator;

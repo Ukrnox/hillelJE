@@ -1,4 +1,4 @@
-package import_from_cvs_in_zip_to_db;
+package importfromcvsinziptodb;
 
 import dao.CityDao;
 import dao.CountryDao;
