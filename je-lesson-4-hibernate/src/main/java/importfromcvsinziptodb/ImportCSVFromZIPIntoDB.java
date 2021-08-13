@@ -19,7 +19,7 @@ public class ImportCSVFromZIPIntoDB {
     public void importCSVFromFileINCurrentDir(String zipFileName) throws SQLException, IOException {
         log.debug("method : 'importCSVFromFileINCurrentDir(String zipFileName)'");
         String path = new File("").getAbsolutePath();
-        importCSVFromFileWithFullPath(path + "\\" + zipFileName);
+        importCSVFromFileWithFullPath(path + "/" + zipFileName);
     }
 
     public void importCSVFromFileWithFullPath(String path) throws IOException {
