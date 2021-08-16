@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public class GUI extends JFrame {
@@ -276,9 +277,10 @@ public class GUI extends JFrame {
             String countryStringId = countryIdTextField.getText();
             try {
                 int countryId = Integer.parseInt(countryStringId);
-                Country country = countryDao.read(countryId, Country.class);
-                if (country != null) {
-                    textArea.append(country + "\n");
+                Optional<Country> optionalCountry = countryDao.read(countryId, Country.class);
+                if(optionalCountry.isPresent())
+                {
+                    textArea.append(optionalCountry.get() + "\n");
                 }
                 else {
                     textArea.append("No country with id " + countryId + "\n");
@@ -298,9 +300,9 @@ public class GUI extends JFrame {
             String regionStringId = regionIdTextField.getText();
             try {
                 int regionId = Integer.parseInt(regionStringId);
-                Region region = regionDao.read(regionId, Region.class);
-                if (region != null) {
-                    textArea.append(region + "\n");
+                Optional<Region> optionalRegion = regionDao.read(regionId, Region.class);
+                if (optionalRegion.isPresent()) {
+                    textArea.append(optionalRegion.get() + "\n");
                 }
                 else {
                     textArea.append("No region with id " + regionId + "\n");
@@ -320,9 +322,9 @@ public class GUI extends JFrame {
             String cityStringId = cityIdTextField.getText();
             try {
                 int cityId = Integer.parseInt(cityStringId);
-                City city = cityDao.read(cityId, City.class);
-                if (city != null) {
-                    textArea.append(city + "\n");
+                Optional<City> optionalCity = cityDao.read(cityId, City.class);
+                if (optionalCity.isPresent()) {
+                    textArea.append(optionalCity.get() + "\n");
                 }
                 else {
                     textArea.append("No city with id " + cityId + "\n");
@@ -391,8 +393,9 @@ public class GUI extends JFrame {
             String newCountryName = country_UpdateNameTextField.getText();
             try {
                 int countryId = Integer.parseInt(countryStringId);
-                Country country = countryDao.read(countryId, Country.class);
-                if (country != null) {
+                Optional<Country> optionalCountry = countryDao.read(countryId, Country.class);
+                if (optionalCountry.isPresent()) {
+                    Country country = optionalCountry.get();
                     country.setName(newCountryName);
                     countryDao.update(country);
                     textArea.append(country + "\n");
@@ -416,8 +419,9 @@ public class GUI extends JFrame {
             String newRegionName = region_UpdateNameTextField.getText();
             try {
                 int regionId = Integer.parseInt(regionStringId);
-                Region region = regionDao.read(regionId, Region.class);
-                if (region != null) {
+                Optional<Region> optionalRegion = regionDao.read(regionId, Region.class);
+                if (optionalRegion.isPresent()) {
+                    Region region = optionalRegion.get();
                     region.setName(newRegionName);
                     regionDao.update(region);
                     textArea.append(region + "\n");
@@ -441,8 +445,9 @@ public class GUI extends JFrame {
             String newCityName = city_UpdateNameTextField.getText();
             try {
                 int cityId = Integer.parseInt(cityStringId);
-                City city = cityDao.read(cityId, City.class);
-                if (city != null) {
+                Optional<City> optionalCity = cityDao.read(cityId, City.class);
+                if (optionalCity.isPresent()) {
+                    City city = optionalCity.get();
                     city.setName(newCityName);
                     cityDao.update(city);
                     textArea.append(city + "\n");

@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public abstract class Dao<T> {
@@ -27,13 +28,11 @@ public abstract class Dao<T> {
         }
     }
 
-    public T read(long id, Class<T> tClass) {
-        T entity;
+    public Optional<T> read(long id, Class<T> tClass) {
         log.debug("method : 'read(long id, {} )", tClass.getSimpleName());
         try (Session session = sessionFactory.openSession()) {
-            entity = session.get(tClass, id);
+            return Optional.of(session.get(tClass, id));
         }
-        return entity;
     }
 
     public void update(T entity) {
