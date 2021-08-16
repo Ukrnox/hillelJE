@@ -10,12 +10,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class CityDaoTest {
-    private static CityDao cityDao = new CityDao();
+    private static CityDao cityDao = new CityDao(HibernateUtil.getSessionFactory());
     private static City city;
     private static City city2;
     private static City city3;
@@ -39,7 +40,7 @@ public class CityDaoTest {
     @Test
     public void create() {
         cityDao.create(city);
-        assertEquals(city, cityDao.read(1, City.class));
+        assertEquals(city, cityDao.read(city.getId(), City.class).orElse(null));
     }
 
     @Test
@@ -57,7 +58,8 @@ public class CityDaoTest {
     @Test
     public void readByName() {
         cityDao.create(city);
-        assertEquals(city.getName(), cityDao.readByName("Test1", City.class).stream().findFirst().orElse(null).getName());
+        Optional<City> cityByName = cityDao.readByName("Test1", City.class).stream().findFirst();
+        assertEquals(city.getName(), cityByName.map(City::getName).orElse(null));
     }
 
     @Test
@@ -67,13 +69,14 @@ public class CityDaoTest {
         System.out.println(city);
         city.setName("new name");
         cityDao.update(city);
-        assertEquals(city, cityDao.read(city.getId(), City.class));
+        assertEquals(city, cityDao.read(city.getId(), City.class).orElse(null));
     }
 
     @Test
     public void delete() {
         cityDao.create(city);
-        cityDao.delete(1, City.class);
-        assertNull(cityDao.read(1, City.class));
+        long id = city.getId();
+        cityDao.delete(id, City.class);
+        assertNull(cityDao.read(id, City.class).orElse(null));
     }
 }

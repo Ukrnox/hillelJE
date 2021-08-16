@@ -13,7 +13,11 @@ import java.util.Optional;
 
 @Slf4j
 public abstract class Dao<T> {
-    private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    private final SessionFactory sessionFactory;
+
+    public Dao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     public void create(T entity) {
         if (entity != null) {
@@ -31,7 +35,7 @@ public abstract class Dao<T> {
     public Optional<T> read(long id, Class<T> tClass) {
         log.debug("method : 'read(long id, {} )", tClass.getSimpleName());
         try (Session session = sessionFactory.openSession()) {
-            return Optional.of(session.get(tClass, id));
+            return Optional.ofNullable(session.get(tClass, id));
         }
     }
 

@@ -6,20 +6,22 @@ import dao.RegionDao;
 import entities.City;
 import entities.Country;
 import entities.Region;
+import hibernateutil.HibernateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.SessionFactory;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 public class GUI extends JFrame {
 
-    private final CountryDao countryDao = new CountryDao();
-    private final RegionDao regionDao = new RegionDao();
-    private final CityDao cityDao = new CityDao();
+    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    private final CountryDao countryDao = new CountryDao(sessionFactory);
+    private final RegionDao regionDao = new RegionDao(sessionFactory);
+    private final CityDao cityDao = new CityDao(sessionFactory);
 
     private final JFrame frame = new JFrame("");
 
