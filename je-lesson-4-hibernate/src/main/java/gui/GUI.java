@@ -228,10 +228,7 @@ public class GUI extends JFrame {
                 textArea.append("No cities in DB!" + "\n");
             }
             else {
-                for (City city :
-                        cities) {
-                    textArea.append(city.toString() + "\n");
-                }
+                cities.forEach(city -> textArea.append(city.toString() + "\n"));
             }
         });
     }
@@ -245,10 +242,7 @@ public class GUI extends JFrame {
                 textArea.append("No countries in DB!" + "\n");
             }
             else {
-                for (Country country :
-                        countries) {
-                    textArea.append(country.toString() + "\n");
-                }
+                countries.forEach(country -> textArea.append(country.toString() + "\n"));
             }
         });
     }
@@ -262,10 +256,7 @@ public class GUI extends JFrame {
                 textArea.append("No regions in DB!" + "\n");
             }
             else {
-                for (Region region :
-                        regions) {
-                    textArea.append(region.toString() + "\n");
-                }
+                regions.forEach(region -> textArea.append(region.toString() + "\n"));
             }
         });
     }
@@ -278,8 +269,7 @@ public class GUI extends JFrame {
             try {
                 int countryId = Integer.parseInt(countryStringId);
                 Optional<Country> optionalCountry = countryDao.read(countryId, Country.class);
-                if(optionalCountry.isPresent())
-                {
+                if (optionalCountry.isPresent()) {
                     textArea.append(optionalCountry.get() + "\n");
                 }
                 else {
