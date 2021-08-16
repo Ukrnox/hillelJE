@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public class CountryDao implements Dao<Country> {
@@ -38,9 +39,9 @@ public class CountryDao implements Dao<Country> {
     }
 
     @Override
-    public Country readById(long id) {
+    public Optional<Country> readById(long id) {
         log.info(this.getClass().getName() + " method : 'readById(long id)'");
-        return read(COUNTRY_SELECT + id).stream().findFirst().orElse(null);
+        return read(COUNTRY_SELECT + id).stream().findFirst();
     }
 
     private List<Country> read(String sql) {

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public class RegionDao implements Dao<Region> {
@@ -61,9 +62,9 @@ public class RegionDao implements Dao<Region> {
     }
 
     @Override
-    public Region readById(long id) {
+    public Optional<Region> readById(long id) {
         log.info(this.getClass().getName() + " method : 'readById(long id)'");
-        return read(REGION_SELECT + id).stream().findFirst().orElse(null);
+        return read(REGION_SELECT + id).stream().findFirst();
     }
 
     @Override

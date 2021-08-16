@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public class GUI extends JFrame {
@@ -321,9 +322,9 @@ public class GUI extends JFrame {
             String countryStringId = countryIdTextField.getText();
             try {
                 int countryId = Integer.parseInt(countryStringId);
-                Country country = countryDao.readById(countryId);
-                if (country != null) {
-                    textArea.append(country + "\n");
+                Optional<Country> country = countryDao.readById(countryId);
+                if (country.isPresent()) {
+                    textArea.append(country.get() + "\n");
                 }
                 else {
                     textArea.append("No country with id " + countryId + "\n");
@@ -343,9 +344,9 @@ public class GUI extends JFrame {
             String regionStringId = regionIdTextField.getText();
             try {
                 int regionId = Integer.parseInt(regionStringId);
-                Region region = regionDao.readById(regionId);
-                if (region != null) {
-                    textArea.append(region + "\n");
+                Optional<Region> region = regionDao.readById(regionId);
+                if (region.isPresent()) {
+                    textArea.append(region.get() + "\n");
                 }
                 else {
                     textArea.append("No region with id " + regionId + "\n");
@@ -365,9 +366,9 @@ public class GUI extends JFrame {
             String cityStringId = cityIdTextField.getText();
             try {
                 int cityId = Integer.parseInt(cityStringId);
-                City city = cityDao.readById(cityId);
-                if (city != null) {
-                    textArea.append(city + "\n");
+                Optional<City> city = cityDao.readById(cityId);
+                if (city.isPresent()) {
+                    textArea.append(city.get() + "\n");
                 }
                 else {
                     textArea.append("No city with id " + cityId + "\n");
@@ -436,8 +437,9 @@ public class GUI extends JFrame {
             String newCountryName = country_UpdateNameTextField.getText();
             try {
                 int countryId = Integer.parseInt(countryStringId);
-                Country country = countryDao.readById(countryId);
-                if (country != null) {
+                Optional<Country> optionalCountry = countryDao.readById(countryId);
+                if (optionalCountry.isPresent()) {
+                    Country country = optionalCountry.get();
                     country.setName(newCountryName);
                     countryDao.update(country);
                     textArea.append(country + "\n");
@@ -461,8 +463,9 @@ public class GUI extends JFrame {
             String newRegionName = region_UpdateNameTextField.getText();
             try {
                 int regionId = Integer.parseInt(regionStringId);
-                Region region = regionDao.readById(regionId);
-                if (region != null) {
+                Optional<Region> optionalRegion = regionDao.readById(regionId);
+                if (optionalRegion.isPresent()) {
+                    Region region = optionalRegion.get();
                     region.setName(newRegionName);
                     regionDao.update(region);
                     textArea.append(region + "\n");
@@ -486,8 +489,9 @@ public class GUI extends JFrame {
             String newCityName = city_UpdateNameTextField.getText();
             try {
                 int cityId = Integer.parseInt(cityStringId);
-                City city = cityDao.readById(cityId);
-                if (city != null) {
+                Optional<City> optionalCity = cityDao.readById(cityId);
+                if (optionalCity.isPresent()) {
+                    City city = optionalCity.get();
                     city.setName(newCityName);
                     cityDao.update(city);
                     textArea.append(city + "\n");

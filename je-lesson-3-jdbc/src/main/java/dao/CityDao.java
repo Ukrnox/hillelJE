@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public class CityDao implements Dao<City> {
@@ -39,9 +40,9 @@ public class CityDao implements Dao<City> {
     }
 
     @Override
-    public City readById(long id) {
+    public Optional<City> readById(long id) {
         log.info(this.getClass().getName() + " method : 'readById(long id)'");
-        return read(CITY_SELECT + id).stream().findFirst().orElse(null);
+        return read(CITY_SELECT + id).stream().findFirst();
     }
 
     private List<City> read(String sql) {
