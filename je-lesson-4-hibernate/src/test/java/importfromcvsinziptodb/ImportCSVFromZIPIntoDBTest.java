@@ -6,6 +6,8 @@ import dao.RegionDao;
 import entities.City;
 import entities.Country;
 import entities.Region;
+import hibernateutil.HibernateUtil;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -25,6 +27,7 @@ class ImportCSVFromZIPIntoDBTest {
         catch (SQLException | IOException e) {
             e.printStackTrace();
         }
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         City city1 = new City(1, "Odesa", null, null);
         City city2 = new City(2, "Kiev", null, null);
         City city3 = new City(3, "Lviv", null, null);
@@ -32,7 +35,7 @@ class ImportCSVFromZIPIntoDBTest {
         citiesList.add(city1);
         citiesList.add(city2);
         citiesList.add(city3);
-        CityDao cityDao = new CityDao();
+        CityDao cityDao = new CityDao(sessionFactory);
         Region region1 = new Region(1, "Florida", null, null);
         Region region2 = new Region(2, "Georgia", null, null);
         Region region3 = new Region(3, "Alabama", null, null);
@@ -42,7 +45,7 @@ class ImportCSVFromZIPIntoDBTest {
         regionsList.add(region2);
         regionsList.add(region3);
         regionsList.add(region4);
-        RegionDao regionDao = new RegionDao();
+        RegionDao regionDao = new RegionDao(sessionFactory);
         Country country1 = new Country(1, "USA", Collections.emptyList(), Collections.emptyList());
         Country country2 = new Country(2, "Ukraine", Collections.emptyList(), Collections.emptyList());
         Country country3 = new Country(3, "Bosnia", Collections.emptyList(), Collections.emptyList());
@@ -52,7 +55,7 @@ class ImportCSVFromZIPIntoDBTest {
         countriesList.add(country2);
         countriesList.add(country3);
         countriesList.add(country4);
-        CountryDao countryDao = new CountryDao();
+        CountryDao countryDao = new CountryDao(sessionFactory);
         assertEquals(citiesList, cityDao.readAll(City.class));
         assertEquals(regionsList, regionDao.readAll(Region.class));
         assertEquals(countriesList, countryDao.readAll(Country.class));
