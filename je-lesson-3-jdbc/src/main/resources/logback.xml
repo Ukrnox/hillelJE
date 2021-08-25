@@ -10,7 +10,7 @@
 
     <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>logs/log_%d{yyyy-MM-dd-HH-mm}.log</FileNamePattern>
+            <FileNamePattern>logs_je-lesson-3-jdbc/log_%d{yyyy-MM-dd-HH-mm}.log</FileNamePattern>
             <!-- keep 30 days' worth of history -->
             <maxHistory>1</maxHistory>
         </rollingPolicy>
