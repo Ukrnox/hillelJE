@@ -31,6 +31,11 @@ public class Region {
         this.name = name;
     }
 
+    public Region(Long id, String name) {
+        this.name = name;
+        this.id = id;
+    }
+
     public Region(String name, List<City> cities, Country country) {
         this.name = name;
         this.cities = cities;

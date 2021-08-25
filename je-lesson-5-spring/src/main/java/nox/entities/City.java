@@ -30,6 +30,11 @@ public class City {
         this.name = name;
     }
 
+    public City(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public City(String name, Country country, Region region) {
         this.name = name;
         this.country = country;
