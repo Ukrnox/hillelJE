@@ -1,9 +1,9 @@
 package nox.cvs;
 
 import lombok.extern.slf4j.Slf4j;
-import nox.entities.City;
-import nox.entities.Country;
-import nox.entities.Region;
+import nox.entities.CityEntity;
+import nox.entities.CountryEntity;
+import nox.entities.RegionEntity;
 import nox.repo.CityRepository;
 import nox.repo.CountryRepository;
 import nox.repo.RegionRepository;
@@ -72,17 +72,17 @@ public class ImportCSVFromZIPIntoDB {
     }
 
     private void saveCities(InputStream is) {
-        List<City> tutorials = CSVHelper.csvToCities(is);
+        List<CityEntity> tutorials = CSVHelper.csvToCities(is);
         cityRepository.saveAll(tutorials);
     }
 
     private void saveCountries(InputStream is) {
-        List<Country> countries = CSVHelper.csvToCountries(is);
+        List<CountryEntity> countries = CSVHelper.csvToCountries(is);
         countryRepository.saveAll(countries);
     }
 
     private void saveRegions(InputStream is) {
-        List<Region> regions = CSVHelper.csvToRegions(is);
+        List<RegionEntity> regions = CSVHelper.csvToRegions(is);
         regionRepository.saveAll(regions);
     }
 }

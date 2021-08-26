@@ -13,7 +13,7 @@ import java.util.List;
 @EqualsAndHashCode(exclude = {"cities", "regions"})
 @ToString(exclude = {"cities", "regions"})
 @Table(name = "countries")
-public class Country {
+public class CountryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -22,21 +22,21 @@ public class Country {
     private String name;
 
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<City> cities;
+    private List<CityEntity> cities;
 
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Region> regions;
+    private List<RegionEntity> regions;
 
-    public Country(String name) {
+    public CountryEntity(String name) {
         this.name = name;
     }
 
-    public Country(Long id, String name) {
+    public CountryEntity(Long id, String name) {
         this.name = name;
         this.id = id;
     }
 
-    public Country(String name, List<City> cities, List<Region> regions) {
+    public CountryEntity(String name, List<CityEntity> cities, List<RegionEntity> regions) {
         this.name = name;
         this.cities = cities;
         this.regions = regions;

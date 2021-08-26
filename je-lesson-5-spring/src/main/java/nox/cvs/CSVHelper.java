@@ -1,8 +1,8 @@
 package nox.cvs;
 
-import nox.entities.City;
-import nox.entities.Country;
-import nox.entities.Region;
+import nox.entities.CityEntity;
+import nox.entities.CountryEntity;
+import nox.entities.RegionEntity;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -26,20 +26,18 @@ public class CSVHelper {
 //        return true;
 //    }
 
-    public static List<City> csvToCities(InputStream is) {
+    public static List<CityEntity> csvToCities(InputStream is) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
              CSVParser csvParser = new CSVParser(fileReader,
                      CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
-            List<City> cities = new ArrayList<>();
-            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-            for (CSVRecord csvRecord : csvRecords) {
-                City city = new City(
+            List<CityEntity> cities = new ArrayList<>();
+            List<CSVRecord> records = csvParser.getRecords();
+            records.forEach((csvRecord)->{
+                CityEntity city = new CityEntity(
                         Long.parseLong(csvRecord.get("Id")),
-                        csvRecord.get("name")
-                );
-                System.out.println(city);
+                        csvRecord.get("name"));
                 cities.add(city);
-            }
+            });
             return cities;
         }
         catch (IOException e) {
@@ -47,19 +45,19 @@ public class CSVHelper {
         }
     }
 
-    public static List<Country> csvToCountries(InputStream is) {
+    public static List<CountryEntity> csvToCountries(InputStream is) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
              CSVParser csvParser = new CSVParser(fileReader,
                      CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
-            List<Country> countries = new ArrayList<>();
-            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-            for (CSVRecord csvRecord : csvRecords) {
-                Country country = new Country(
+            List<CountryEntity> countries = new ArrayList<>();
+            List<CSVRecord> records = csvParser.getRecords();
+            records.forEach((csvRecord)->{
+                CountryEntity country = new CountryEntity(
                         Long.parseLong(csvRecord.get("Id")),
                         csvRecord.get("name")
                 );
                 countries.add(country);
-            }
+            });
             return countries;
         }
         catch (IOException e) {
@@ -67,19 +65,19 @@ public class CSVHelper {
         }
     }
 
-    public static List<Region> csvToRegions(InputStream is) {
+    public static List<RegionEntity> csvToRegions(InputStream is) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
              CSVParser csvParser = new CSVParser(fileReader,
                      CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
-            List<Region> regions = new ArrayList<>();
-            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-            for (CSVRecord csvRecord : csvRecords) {
-                Region region = new Region(
+            List<RegionEntity> regions = new ArrayList<>();
+            List<CSVRecord> records = csvParser.getRecords();
+            records.forEach((csvRecord)->{
+                RegionEntity region = new RegionEntity(
                         Long.parseLong(csvRecord.get("Id")),
                         csvRecord.get("name")
                 );
                 regions.add(region);
-            }
+            });
             return regions;
         }
         catch (IOException e) {

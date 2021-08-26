@@ -1,6 +1,6 @@
 package nox.services;
 
-import nox.entities.Country;
+import nox.entities.CountryEntity;
 import nox.repo.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,20 +18,20 @@ public class CountryService {
         this.countryRepository = countryRepository;
     }
 
-    public List<Country> findAllCountries() {
+    public List<CountryEntity> findAllCountries() {
         return countryRepository.findAll();
     }
 
     @Transactional
-    public Country save(Country country) {
+    public CountryEntity save(CountryEntity country) {
         return countryRepository.save(country);
     }
 
-    public Optional<Country> findCountryById(Long countryId) {
+    public Optional<CountryEntity> findCountryById(Long countryId) {
         return countryRepository.findById(countryId);
     }
 
-    public List<Country> findCountryByName(String name){
+    public List<CountryEntity> findCountryByName(String name){
         return countryRepository.findByName(name);
     }
 }

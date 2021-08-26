@@ -12,7 +12,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(exclude = {"country", "region"})
 @ToString(exclude = {"country", "region"})
 @Table(name = "cities")
-public class City {
+public class CityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -21,21 +21,21 @@ public class City {
     private String name;
 
     @ManyToOne
-    private Country country;
+    private CountryEntity country;
 
     @ManyToOne
-    private Region region;
+    private RegionEntity region;
 
-    public City(String name) {
+    public CityEntity(String name) {
         this.name = name;
     }
 
-    public City(Long id, String name) {
+    public CityEntity(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public City(String name, Country country, Region region) {
+    public CityEntity(String name, CountryEntity country, RegionEntity region) {
         this.name = name;
         this.country = country;
         this.region = region;

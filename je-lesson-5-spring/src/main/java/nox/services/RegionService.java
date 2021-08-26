@@ -1,6 +1,6 @@
 package nox.services;
 
-import nox.entities.Region;
+import nox.entities.RegionEntity;
 import nox.repo.RegionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,20 +18,20 @@ public class RegionService {
         this.regionRepository = regionRepository;
     }
 
-    public List<Region> findAllRegions() {
+    public List<RegionEntity> findAllRegions() {
         return regionRepository.findAll();
     }
 
     @Transactional
-    public Region save(Region region) {
+    public RegionEntity save(RegionEntity region) {
         return regionRepository.save(region);
     }
 
-    public Optional<Region> findRegionById(Long regionId) {
+    public Optional<RegionEntity> findRegionById(Long regionId) {
         return regionRepository.findById(regionId);
     }
 
-    public List<Region> findRegionByName(String name) {
+    public List<RegionEntity> findRegionByName(String name) {
         return regionRepository.findByName(name);
     }
 }

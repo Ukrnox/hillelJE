@@ -1,6 +1,6 @@
 package nox.controllers;
 
-import nox.entities.Region;
+import nox.entities.RegionEntity;
 import nox.exceptions.ElementNotFound;
 import nox.services.RegionService;
 import nox.services.ValidationService;
@@ -23,8 +23,8 @@ public class RegionController {
     }
 
     @GetMapping
-    public List<Region> getAllRegions() {
-        List<Region> allRegions = regionService.findAllRegions();
+    public List<RegionEntity> getAllRegions() {
+        List<RegionEntity> allRegions = regionService.findAllRegions();
         if (allRegions.isEmpty()) {
             throw new ElementNotFound("No regions in DB!");
         }
@@ -32,24 +32,24 @@ public class RegionController {
     }
 
     @GetMapping("/{regionId}")
-    public Region getRegionById(@PathVariable("regionId") String regionId) {
+    public RegionEntity getRegionById(@PathVariable("regionId") String regionId) {
         Long id = validationService.idValidation(regionId);
         return regionService.findRegionById(id)
                 .orElseThrow(() -> new ElementNotFound("Region with id " + regionId + " not found!"));
     }
 
     @GetMapping("/name/{regionName}")
-    public List<Region> getRegionByName(@PathVariable("regionName") String regionName) {
-        List<Region> regionByName = regionService.findRegionByName(regionName);
+    public List<RegionEntity> getRegionByName(@PathVariable("regionName") String regionName) {
+        List<RegionEntity> regionByName = regionService.findRegionByName(regionName);
         if (regionByName.isEmpty()) {
             throw new ElementNotFound("No Regions with name " + regionName);
         }
         return regionByName;
     }
 
-    @PostMapping
-    public Region createNewRegion(@RequestBody Region regionJson) {
-        Region newRegion = new Region();
+    @PostMapping("/")
+    public RegionEntity createNewRegion(@RequestBody RegionEntity regionJson) {
+        RegionEntity newRegion = new RegionEntity();
         newRegion.setName(regionJson.getName());
         regionService.save(newRegion);
         return newRegion;

@@ -1,6 +1,6 @@
 package nox.controllers;
 
-import nox.entities.Country;
+import nox.entities.CountryEntity;
 import nox.exceptions.ElementNotFound;
 import nox.services.CountryService;
 import nox.services.ValidationService;
@@ -22,8 +22,8 @@ public class CountryController {
     }
 
     @GetMapping
-    public List<Country> getAllCities() {
-        List<Country> allCountries = countryService.findAllCountries();
+    public List<CountryEntity> getAllCities() {
+        List<CountryEntity> allCountries = countryService.findAllCountries();
         if (allCountries.isEmpty()) {
             throw new ElementNotFound("No countries in DB!");
         }
@@ -31,23 +31,23 @@ public class CountryController {
     }
 
     @GetMapping("/{countryId}")
-    public Country getCountryById(@PathVariable("countryId") String countryId) {
+    public CountryEntity getCountryById(@PathVariable("countryId") String countryId) {
         Long id = validationService.idValidation(countryId);
         return countryService.findCountryById(id).orElseThrow(() -> new ElementNotFound("No country with ID " + countryId + " in the DB"));
     }
 
     @GetMapping("/name/{countryName}")
-    public List<Country> getCountryByName(@PathVariable("countryName") String countryName) {
-        List<Country> countryByName = countryService.findCountryByName(countryName);
+    public List<CountryEntity> getCountryByName(@PathVariable("countryName") String countryName) {
+        List<CountryEntity> countryByName = countryService.findCountryByName(countryName);
         if (countryByName.isEmpty()) {
             throw new ElementNotFound("No country with name " + countryName + " in the DB");
         }
         return countryByName;
     }
 
-    @PostMapping
-    public Country createNewCountry(@RequestBody Country countryJson) {
-        Country newCountry = new Country();
+    @PostMapping("/")
+    public CountryEntity createNewCountry(@RequestBody CountryEntity countryJson) {
+        CountryEntity newCountry = new CountryEntity();
         newCountry.setName(countryJson.getName());
         countryService.save(newCountry);
         return newCountry;

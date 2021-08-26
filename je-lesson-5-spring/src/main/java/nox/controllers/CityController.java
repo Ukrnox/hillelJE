@@ -1,6 +1,6 @@
 package nox.controllers;
 
-import nox.entities.City;
+import nox.entities.CityEntity;
 import nox.exceptions.ElementNotFound;
 import nox.services.CityService;
 import nox.services.ValidationService;
@@ -22,32 +22,32 @@ public class CityController {
     }
 
     @GetMapping
-    public List<City> getAllCities() {
-        List<City> allCities = cityService.findAllCities();
+    public List<CityEntity> getAllCities() {
+        List<CityEntity> allCities = cityService.findAllCities();
         if (allCities.isEmpty()) {
             throw new ElementNotFound("No cities in DB!");
         }
-        return cityService.findAllCities();
+        return allCities;
     }
 
     @GetMapping("/{cityId}")
-    public City getCityById(@PathVariable("cityId") String cityId) {
+    public CityEntity getCityById(@PathVariable("cityId") String cityId) {
         Long id = validationService.idValidation(cityId);
         return cityService.findCityById(id).orElseThrow(() -> new ElementNotFound("No city with ID " + cityId + " in DB!"));
     }
 
     @GetMapping("/name/{cityName}")
-    public List<City> getCityByName(@PathVariable("cityName") String cityName) {
-        List<City> cityByName = cityService.findCityByName(cityName);
+    public List<CityEntity> getCityByName(@PathVariable("cityName") String cityName) {
+        List<CityEntity> cityByName = cityService.findCityByName(cityName);
         if (cityByName.isEmpty()) {
             throw new ElementNotFound("No city with name " + cityName + " in DB!");
         }
         return cityByName;
     }
 
-    @PostMapping
-    public City createNewCity(@RequestBody City cityJson) {
-        City newCity = new City();
+    @PostMapping("/")
+    public CityEntity createNewCity(@RequestBody CityEntity cityJson) {
+        CityEntity newCity = new CityEntity();
         newCity.setName(cityJson.getName());
         cityService.save(newCity);
         return newCity;

@@ -1,6 +1,6 @@
 package nox.services;
 
-import nox.entities.City;
+import nox.entities.CityEntity;
 import nox.repo.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,20 +19,20 @@ public class CityService {
         this.cityRepository = cityRepository;
     }
 
-    public List<City> findAllCities() {
+    public List<CityEntity> findAllCities() {
         return cityRepository.findAll();
     }
 
     @Transactional
-    public City save(City city) {
+    public CityEntity save(CityEntity city) {
         return cityRepository.save(city);
     }
 
-    public Optional<City> findCityById(Long cityId) {
+    public Optional<CityEntity> findCityById(Long cityId) {
         return cityRepository.findById(cityId);
     }
 
-    public List<City> findCityByName(String name){
+    public List<CityEntity> findCityByName(String name){
         return cityRepository.findByName(name);
     }
 }
