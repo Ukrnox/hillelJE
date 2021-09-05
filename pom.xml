@@ -20,6 +20,7 @@
     <module>je-lesson-3-jdbc</module>
     <module>je-lesson-4-hibernate</module>
     <module>je-lesson-5-spring</module>
+    <module>je-lesson-7-spring-js</module>
   </modules>
   
 </project>

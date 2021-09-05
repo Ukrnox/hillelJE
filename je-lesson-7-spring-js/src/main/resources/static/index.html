@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Jack</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url("css/btns.css");
+        @import url("css/body.css");
+        @import url("css/header.css");
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2>My name is Jack!</h2>
+    <button class="btn headerbtn" onclick="about()">About me</button>
+</div>
+
+<div class="content" align="center">
+    <img src="img/dog.jpg" border=”25px”>
+</div>
+
+</body>
+<script>
+    function about() {
+        document.location.href = 'http://localhost/about.html'
+    }
+    $(".btn").on('mouseover', function (){
+        $(this).animate({
+"wight": "200px"
+        })
+    })
+</script>
+
+</html>

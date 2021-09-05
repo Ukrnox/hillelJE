@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Jack</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url("css/btns.css");
+        @import url("css/body.css");
+        @import url("css/header.css");
+        #bug {
+            position: relative;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2>About me</h2>
+    <button class="btn headerbtn" onclick="index()">My photo</button>
+</div>
+
+<div class="content" align="center">
+    <p>I was a stray dog. But now I have wonderful owners.<br>
+    I love to walk in the park and catch bugs.<br>
+    I also really like to eat delicious food.<br>
+    I am fed every day with meat.<br>
+    Have a nice day and thank you for visiting my site.</p>
+    </div>
+<img id="bug" src="img/bug.jpg">
+</body>
+<script>
+    function index() {
+        document.location.href = 'http://localhost/'
+    }
+    bug.onclick = function() {
+        let start = Date.now();
+
+        let timer = setInterval(function() {
+            let timePassed = Date.now() - start;
+
+            bug.style.left = timePassed / 5 + 'px';
+
+            if (timePassed > 4000) clearInterval(timer);
+
+        }, 20);
+    }
+</script>
+
+</html>
