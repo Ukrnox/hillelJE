@@ -40,23 +40,18 @@ public class MyServlet<T> extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         StringBuffer requestURL = request.getRequestURL();
         String stringRequestURL = requestURL.toString();
-        System.out.println(stringRequestURL);
         String[] splitRequestURL = stringRequestURL.split("/");
         System.out.println(Arrays.toString(splitRequestURL));
         String last = splitRequestURL[splitRequestURL.length - 1];
-//        try (PrintWriter writer = response.getWriter()){
         if (splitRequestURL[splitRequestURL.length - 2].equals("name")) {
             List<T> cityEntities = dao.readByName(last, typeOfT);
             if (cityEntities.isEmpty()) {
-                request.setAttribute("information", typeOfT.getSimpleName() + " was not found!");
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
-                requestDispatcher.forward(request, response);
+                forward(request, response, typeOfT.getSimpleName() + " was not found!");
             }
             else {
-                request.setAttribute("information", dao.readByName(last, typeOfT));
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
-                requestDispatcher.forward(request, response);
-//                    writer.println(dao.readByName(last, typeOfT));
+                forward(request, response, cityEntities.stream()
+                        .map(Object::toString)
+                        .collect(Collectors.joining(", \n")));
             }
         }
         else {
@@ -64,42 +59,35 @@ public class MyServlet<T> extends HttpServlet {
                 long id = Long.parseLong(last);
                 T entity = dao.read(id, typeOfT).orElse(null);
                 if (entity == null) {
-//                    writer.println(typeOfT.getSimpleName() + " was not found!");
-                    request.setAttribute("information", typeOfT.getSimpleName() + " was not found!");
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
-                    requestDispatcher.forward(request, response);
+                    forward(request, response, typeOfT.getSimpleName() + " was not found!");
+
                 }
                 else {
-//                    writer.println(entity);
-                    request.setAttribute("information", entity);
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
-                    requestDispatcher.forward(request, response);
+                    forward(request, response, entity.toString());
                 }
             }
             catch (NumberFormatException e) {
                 if (splitRequestURL.length == 4) {
                     StringBuilder sb = new StringBuilder();
-                    dao.readAll(typeOfT).forEach(cityEntity -> sb.append(cityEntity.toString()));
-                    request.setAttribute("information", sb);
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
-                    requestDispatcher.forward(request, response);
+                    dao.readAll(typeOfT).forEach(cityEntity -> sb.append(cityEntity.toString()).append("\n"));
+                    forward(request, response, sb.toString());
                 }
                 else {
-//                    writer.println("Wrong format!");
-                    request.setAttribute("information", "Wrong format!");
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
-                    requestDispatcher.forward(request, response);
+                    forward(request, response, "Wrong format!");
                 }
             }
-//        }
         }
+    }
+
+    private void forward(HttpServletRequest request, HttpServletResponse response, String info) throws ServletException, IOException {
+        request.setAttribute("information", info);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
+        requestDispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-//        response.setContentType("text/html");
-//        response.setCharacterEncoding("UTF-8");
         String body = request.getReader().lines().collect(Collectors.joining());
         String clearBody = body.replaceAll("[{:\"}]", "");
         String name = clearBody.split("name", 2)[1];
