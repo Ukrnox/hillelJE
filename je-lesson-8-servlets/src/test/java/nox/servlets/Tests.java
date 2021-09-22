@@ -49,7 +49,7 @@ class Tests {
     void getByName() {
         String body = this.restTemplate.getForObject("/cities/name/Arra", String.class);
         System.out.println(body);
-        assertThat(body.replaceAll("\\s+","")).isEqualTo(returnExpectedResult("[CityEntity(id=1, name=Arra)]").replaceAll("\\s+",""));
+        assertThat(body.replaceAll("\\s+","")).isEqualTo(returnExpectedResult("CityEntity(id=1, name=Arra)").replaceAll("\\s+",""));
     }
 
     @Test
