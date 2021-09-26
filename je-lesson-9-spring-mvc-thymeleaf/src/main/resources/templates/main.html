@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring</title>
+    <link media="all" rel="stylesheet" th:href="@{/css/button.css}" type="text/css"/>
+    <style>
+        BODY {
+            background: url([[@{/img/polit-map.jpg}]]) no-repeat center center fixed;
+            color: blue;
+        }
+
+        h3 {
+            border: 3px solid green;
+            background-color: black;
+            margin: auto;
+            width: 20%;
+            color: white;
+        }
+    </style>
+</head>
+
+<body align="center">
+
+<form action="/importFromZip" method="post">
+    <button class="button button1">Import</button>
+</form>
+
+<input type="text" id="cityId" placeholder="cityId">
+<button class="button button1" onclick="get('http://localhost/cities/', true, 'cityId')">GET city by id</button>
+<br>
+<br>
+<input type="text" id="getCityByName" placeholder="cityName">
+<button class="button button1" onclick="get('http://localhost/cities/name/', true, 'getCityByName')">getCityByName
+</button>
+<br>
+<br>
+<form action="/cities/create" method="post" th:object="${city}">
+    <input type="text" name="name" required placeholder="CityName">
+    <button type="submit" class="button button1">POST new City</button>
+</form>
+<br>
+<br>
+<button class="button button1" onclick="get('http://localhost/cities/', false)">Get all cities</button>
+<br>
+<br>
+<input type="text" id="countryId" placeholder="CountryId">
+<button class="button button1" onclick="get('http://localhost/countries/', true, 'countryId')">GET countryId by id
+</button>
+<br>
+<br>
+<input type="text" id="getCountryByName" placeholder="CountryName">
+<button class="button button1" onclick="get('http://localhost/countries/name/', true, 'getCountryByName')">
+    getCountryByName
+</button>
+<br>
+<br>
+<form action="/countries/create" method="post" th:object="${country}">
+    <input type="text" name="name" required placeholder="CountryName">
+    <button type="submit" class="button button1">POST new country</button>
+</form>
+<br>
+<br>
+<button class="button button1" onclick="get('http://localhost/countries/', false)">Get all countries</button>
+<br>
+<br>
+<input type="text" id="regionId" placeholder="regionId">
+<button class="button button1" onclick="get('http://localhost/regions/', true, 'regionId')">GET regionId by id</button>
+<br>
+<br>
+<input type="text" id="getRegionByName" placeholder="regionName">
+<button class="button button1" onclick="get('http://localhost/regions/name/', true, 'getRegionByName')">
+    getRegionByName
+</button>
+<br>
+<br>
+<form action="/regions/create" method="post" th:object="${region}">
+    <input type="text" name="name" required placeholder="regionName">
+    <button type="submit" class="button button1">POST new region</button>
+</form>
+<br>
+<br>
+<button class="button button1" onclick="get('http://localhost/regions/', false)">Get all regions</button>
+<br>
+<br>
+<br>
+<p class="result" style="color:white">
+<h3><span th:text="${information}"></span></h3>
+
+</body>
+
+<script>
+    function get(url, getOne, whichField) {
+        let fieldValue = document.querySelector('#' + whichField);
+        let url2 = url;
+        if (getOne === true) {
+            if (fieldValue.value.length === 0 || !fieldValue.value.trim()) {
+                alert("Field " + whichField + " is empty");
+                return false;
+            }
+            url2 = url + fieldValue.value;
+        }
+        document.location.href = url2;
+    }
+</script>
+
+</html>
