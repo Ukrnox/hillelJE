@@ -21,6 +21,7 @@
     <module>je-lesson-4-hibernate</module>
     <module>je-lesson-5-spring</module>
     <module>je-lesson-7-spring-js</module>
+    <module>je-lesson-9-spring-mvc-thymeleaf</module>
   </modules>
   
 </project>
